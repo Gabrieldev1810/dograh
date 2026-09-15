@@ -1,38 +1,21 @@
 import { cn } from "@/lib/utils";
 
-// Reusable Dograh wordmark. Theme-aware by default: the dark logo shows on light
-// surfaces and the light/cream logo shows on dark. Pass `inverse` to force the
-// light logo on an always-dark surface (e.g. the auth brand panel). Pass `mark`
-// to render the square logo mark instead of the full wordmark (e.g. the app
-// sidebar header). Height is controlled by the caller via className (e.g.
-// "h-7"); width stays auto so each lockup keeps its aspect ratio.
-export function BrandLogo({
-  className,
-  inverse = false,
-  mark = false,
-}: {
+// Mint Ops identity, with a compact symbol for narrow layouts.
+export function BrandLogo({ className, inverse = false, mark = false }: {
   className?: string;
   inverse?: boolean;
   mark?: boolean;
 }) {
-  if (mark) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src="/dograh-mark.png" alt="Dograh" className={cn("w-auto select-none", className)} />
-    );
-  }
-  if (inverse) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src="/dograh-logo-inverse.png" alt="Dograh" className={cn("w-auto select-none", className)} />
-    );
-  }
   return (
-    <>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/dograh-logo.png" alt="Dograh" className={cn("block w-auto select-none dark:hidden", className)} />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/dograh-logo-inverse.png" alt="Dograh" className={cn("hidden w-auto select-none dark:block", className)} />
-    </>
+    <svg viewBox={mark ? "0 0 32 32" : "0 0 92 32"} role="img" aria-label="BSI"
+      className={cn("w-auto shrink-0 select-none", inverse ? "text-zinc-50" : "text-foreground", className)}>
+      <rect width="32" height="32" rx="7" fill="var(--cta)" />
+      <path d="M8 19c2-10 4-10 6 0s4 10 6 0 3-10 5 0" fill="none"
+        stroke="var(--cta-foreground)" strokeWidth="2" strokeLinecap="round" />
+      {!mark && (
+        <text x="43" y="23" fill="currentColor" fontFamily="Arial, Helvetica, sans-serif"
+          fontSize="20" fontWeight="700" letterSpacing="-.6">BSI</text>
+      )}
+    </svg>
   );
 }
